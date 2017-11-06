@@ -1,0 +1,17 @@
+version: "3"
+services:
+    server:
+        container_name: proxy-server
+        build: .
+        ports:
+            - "80:80"
+        volumes:
+            - ./log:/var/log/nginx:delegated
+        networks:
+            - proxy-server
+        tty: true
+
+networks:
+    proxy-server:
+        external:
+            name: proxy-server
