@@ -1,8 +1,9 @@
+This repo is a simple proxy server you can run in Docker.
+
 ## Example
-I would recommend to use docker-compose.yml for the next steps 
+I would recommend to use docker-compose.yml in your project for the next steps .
 
 - Clone this repo whether you want
-
 - Edit your hosts file
 ````
 127.0.0.1 localhost
