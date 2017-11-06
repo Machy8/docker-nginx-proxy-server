@@ -32,7 +32,7 @@ networks:
 ````nginx
 server {
     listen 80;
-    server_name localdev.test.com test.com
+    server_name localdev.test.com test.com;
     
     proxy_redirect   off;
     proxy_set_header Host $host;
