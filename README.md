@@ -1,4 +1,4 @@
-This repo is a simple proxy server you can run in Docker.
+This repo is a simple Nginx proxy server you can run in Docker.
 
 ## Example
 I would recommend to use docker-compose.yml in your project for the next steps .
@@ -29,10 +29,10 @@ networks:
 ````
 
 - Add config (for example test.com.conf) file into the hosts directory
-````
+````nginx
 server {
     listen 80;
-    server_name localdev.test.com test.com
+    server_name localdev.test.com test.com;
     
     proxy_redirect   off;
     proxy_set_header Host $host;
