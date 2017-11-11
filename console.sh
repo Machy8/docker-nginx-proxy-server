@@ -14,14 +14,18 @@ Commands:
 EOF
 }
 
+ORANGE='\033[0;33m' # Orange
+NC='\033[0m' # No color
 COMPOSE_FILE=$(dirname "$0")/docker-compose.yml
-
-build () {
-    call build --no-cache
-}
 
 call () {
     docker-compose -f "$COMPOSE_FILE" $*
+}
+
+
+build () {
+    echo -e "${ORANGE}BUILDING PROXY-SERVER..${NC}"
+    call build --no-cache
 }
 
 rebuild () {
@@ -36,12 +40,13 @@ restart () {
 }
 
 start () {
-    call up -d
+    echo -e "${ORANGE}STARTING PROXY-SERVER..${NC}"
+    call up -d --force-recreate
 }
 
 stop () {
+    echo -e "${ORANGE}STOPPING PROXY-SERVER..${NC}"
     call stop
-    call rm -f
 }
 
 if [[ $# -eq 1 ]] ; then
