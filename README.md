@@ -4,14 +4,7 @@ This repo is a simple Nginx proxy server you can run in Docker.
 I would recommend to use docker-compose.yml in your project for the next steps .
 
 - Clone this repo whether you want
-- Edit your hosts file
-````
-127.0.0.1 localhost
-127.0.0.1 localdev.test.com test.com
-````
-
 - Open your console and run `docker network create proxy-server`
-
 - Connect containers you want to connect to proxy server to the proxy-server network
 ````yaml
 version: "3"
@@ -42,7 +35,11 @@ server {
     }
 }
 ````
-
+- (optional) Edit your hosts file
+````
+127.0.0.1 localhost
+127.0.0.1 localdev.test.com test.com
+````
 - Build and start the container with your test web
 - Build and start the container with proxy-server
 - Open browser and connect to http://localdev.test.com
