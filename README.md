@@ -1,9 +1,28 @@
 This repo is a simple Nginx proxy server you can run in Docker.
 
-## Example
+## Example 
 I would recommend to use docker-compose.yml in your project for the next steps .
 
-- Clone this repo whether you want
+- Clone or pull this repo
+````yaml
+version: "3"
+services:
+    web:
+        container_name: test-proxy
+        image: machy8/docker-nginx-proxy-server
+        volumes:
+            - /sites.d/test-web:/etc/nginx/sites.d/test-web
+````
+- Make directory /sites.d/test-web (example with certificates bellow)
+````
+- docker-compose.yml
+- sites.d
+    - test-web
+        - certificates
+            - letsencrypt.crt
+            - letsencrypt.key
+        - test-web.conf
+````
 - Open your console and run `docker network create proxy-server`
 - Connect containers you want to connect to proxy server to the proxy-server network
 ````yaml
@@ -11,8 +30,8 @@ version: "3"
 services:
     web:
         container_name: test-web
-        image: nginx:alpine
-        networks:
+        image: nginx:alpine
+        networks:
             - proxy-server
 
 networks:
