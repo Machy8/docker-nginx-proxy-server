@@ -7,7 +7,7 @@ Commands:
     call: Function to call docker-compose ...
 
     build: build --no-cache
-    certbot: Calls Letsencrypt certbot command
+    certbot: Calls Let's Encrypt certbot command
     rebuild: stop + build + start
     restart: stop + start
     start: Start containers by calling docker-compose up -d --force-recreate
