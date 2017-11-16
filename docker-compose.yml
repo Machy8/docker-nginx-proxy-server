@@ -7,7 +7,8 @@ services:
             - "80:80"
             - "443:443"
         volumes:
-            - ./log:/var/log/nginx:delegated
+            - ./log:/var/log/nginx
+            - ./sites.d:/etc/nginx/sites.d
         networks:
             - proxy-server
         tty: true
