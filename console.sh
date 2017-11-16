@@ -4,6 +4,7 @@ usage () {
 
 cat << EOF
 Commands:
+    (only for cloned project)
     call: Function to call docker-compose ...
 
     build: build --no-cache
