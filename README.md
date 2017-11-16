@@ -11,7 +11,7 @@ services:
         container_name: test-proxy
         image: machy8/docker-nginx-proxy-server
         volumes:
-            - /sites.d/test-web:/etc/nginx/sites.d/test-web
+            - ./sites.d/test-web:/etc/nginx/sites.d/test-web
 ````
 - Make directory /sites.d/test-web (example with certificates bellow)
 ````
