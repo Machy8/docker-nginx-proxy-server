@@ -41,7 +41,7 @@ networks:
 ````
 
 - Add config (for example test.com.conf) file into the hosts directory
-````nginx
+````conf
 server {
     listen 80;
     server_name localdev.test.com test.com;
