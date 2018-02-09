@@ -1,6 +1,7 @@
-FROM nginx:alpine
+FROM nginx:latest
 
-RUN apk add --no-cache openssl certbot
+RUN echo "deb http://ftp.debian.org/debian stretch-backports main" >> "/etc/apt/sources.list" && \
+    apt-get update && apt-get install -y certbot -t stretch-backports
 
 RUN rm -rf /etc/nginx/conf.d/*
 
