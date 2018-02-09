@@ -62,3 +62,7 @@ server {
 - Build and start the container with your test web
 - Build and start the container with proxy-server
 - Open browser and connect to http://localdev.test.com
+
+## Certbot (Lets Encrypt)
+- Proxy server already contains [certbot](https://certbot.eff.org/)
+- If you want to create certificate or renew it, just add the `--webroot -w /var/www/html` (for example `certbot renew --dry-run --webroot -w /var/www/html`)
