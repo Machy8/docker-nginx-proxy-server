@@ -5,13 +5,24 @@ I would recommend to use docker-compose.yml in your project for the next steps .
 
 - Clone or pull this repo
 ````yaml
-version: "3"
+version: '3'
 services:
-    web:
-        container_name: test-proxy
-        image: machy8/docker-nginx-proxy-server
-        volumes:
-            - ./sites.d/test-web:/etc/nginx/sites.d/test-web
+  server:
+    container_name: proxy-server
+    image: machy8/docker-nginx-proxy-server
+    volumes:
+        - ./sites.d/test-web:/etc/nginx/sites.d/test-web
+        - ./log:/var/log/nginx
+    networks:
+        - proxy-server
+    ports:
+        - "80:80"
+        - "443:443"
+
+networks:
+    proxy-server:
+        external:
+            name: proxy-server
 ````
 - Make directory /sites.d/test-web (example with certificates bellow)
 ````
