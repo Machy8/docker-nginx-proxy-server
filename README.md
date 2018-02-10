@@ -65,4 +65,4 @@ server {
 
 ## Certbot (Lets Encrypt)
 - Proxy server already contains [certbot](https://certbot.eff.org/)
-- If you want to create certificate or renew it, just add the `--webroot -w /var/www/html` (for example `certbot renew --dry-run --webroot -w /var/www/html`)
+- Nginx is configured to redirect all .well-known paths to the `/var/www/html` directory in order to allow Let's Encrypt to check and generate the certificates
