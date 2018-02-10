@@ -1,9 +1,9 @@
 This repo is a simple Nginx proxy server you can run in Docker.
 
 ## Example 
-I would recommend to use docker-compose.yml in your project for the next steps .
+- Open your console and run `docker network create proxy-server`
 
-- Clone or pull this repo
+- Create a docker-compose.yml file for the proxy-server
 ````yaml
 version: '3'
 services:
@@ -24,7 +24,8 @@ networks:
         external:
             name: proxy-server
 ````
-- Make directory /sites.d/test-web (example with certificates bellow)
+
+- Create a directory /sites.d/test-web (example with certificates bellow)
 ````
 - docker-compose.yml
 - sites.d
@@ -34,7 +35,22 @@ networks:
             - letsencrypt.key
         - test-web.conf
 ````
-- Open your console and run `docker network create proxy-server`
+
+- Create a configuration file (for example test.com.conf) in the hosts directory
+````nginx
+server {
+    listen 80;
+    server_name localdev.test.com test.com;
+    
+    proxy_redirect   off;
+    proxy_set_header Host $host;
+    
+    location / {
+        proxy_pass  http://test-web/; # Blog web is the name of the container
+    }
+}
+````
+
 - Connect containers you want to connect to proxy server to the proxy-server network
 ````yaml
 version: "3"
@@ -51,20 +67,6 @@ networks:
             name: proxy-server  # This s the name of the external network
 ````
 
-- Add config (for example test.com.conf) file into the hosts directory
-````nginx
-server {
-    listen 80;
-    server_name localdev.test.com test.com;
-    
-    proxy_redirect   off;
-    proxy_set_header Host $host;
-    
-    location / {
-        proxy_pass  http://test-web/; # Blog web is the name of the container
-    }
-}
-````
 - (optional) Edit your hosts file
 ````
 127.0.0.1 localhost
