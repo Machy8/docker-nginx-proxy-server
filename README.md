@@ -1,5 +1,15 @@
 This repo is a simple Nginx proxy server you can run in Docker.
 
+Pull image
+````
+docker pull machy8/docker-nginx-proxy-server
+````
+
+Required network
+````
+docker network create proxy-server
+````
+
 ## Example 
 - Open your console and run `docker network create proxy-server`
 
