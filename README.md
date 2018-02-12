@@ -1,3 +1,8 @@
+[![Docker Pulls](https://img.shields.io/docker/pulls/machy8/docker-nginx-proxy-server.svg)](https://hub.docker.com/r/machy8/docker-nginx-proxy-server/)
+[![Docker Build Status](https://img.shields.io/docker/build/machy8/docker-nginx-proxy-server.svg)]()
+
+# Docker nginx proxy server
+
 This repo is a simple Nginx proxy server you can run in Docker.
 
 Pull image
