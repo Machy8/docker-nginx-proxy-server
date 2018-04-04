@@ -1,19 +1,46 @@
+[![Docker Pulls](https://img.shields.io/docker/pulls/machy8/docker-nginx-proxy-server.svg)](https://hub.docker.com/r/machy8/docker-nginx-proxy-server/)
+[![Docker Build Status](https://img.shields.io/docker/build/machy8/docker-nginx-proxy-server.svg)]()
+
+# Docker nginx proxy server
+
 This repo is a simple Nginx proxy server you can run in Docker.
 
-## Example 
-I would recommend to use docker-compose.yml in your project for the next steps .
-
-- Clone or pull this repo
-````yaml
-version: "3"
-services:
-    web:
-        container_name: test-proxy
-        image: machy8/docker-nginx-proxy-server
-        volumes:
-            - ./sites.d/test-web:/etc/nginx/sites.d/test-web
+Pull image
 ````
-- Make directory /sites.d/test-web (example with certificates bellow)
+docker pull machy8/docker-nginx-proxy-server
+````
+
+Required network
+````
+docker network create proxy-server
+````
+
+## Example 
+- Open your console and run `docker network create proxy-server`
+
+- Create a docker-compose.yml file for the proxy-server
+````yaml
+version: '3'
+services:
+  server:
+    container_name: proxy-server
+    image: machy8/docker-nginx-proxy-server
+    volumes:
+        - ./sites.d/test-web:/etc/nginx/sites.d/test-web
+        - ./log:/var/log/nginx
+    networks:
+        - proxy-server
+    ports:
+        - "80:80"
+        - "443:443"
+
+networks:
+    proxy-server:
+        external:
+            name: proxy-server
+````
+
+- Create a directory /sites.d/test-web (example with certificates bellow)
 ````
 - docker-compose.yml
 - sites.d
@@ -23,7 +50,22 @@ services:
             - letsencrypt.key
         - test-web.conf
 ````
-- Open your console and run `docker network create proxy-server`
+
+- Create a configuration file (for example test.com.conf) in the hosts directory
+````nginx
+server {
+    listen 80;
+    server_name localdev.test.com test.com;
+    
+    proxy_redirect   off;
+    proxy_set_header Host $host;
+    
+    location / {
+        proxy_pass  http://test-web/; # Blog web is the name of the container
+    }
+}
+````
+
 - Connect containers you want to connect to proxy server to the proxy-server network
 ````yaml
 version: "3"
@@ -40,20 +82,6 @@ networks:
             name: proxy-server  # This s the name of the external network
 ````
 
-- Add config (for example test.com.conf) file into the hosts directory
-````nginx
-server {
-    listen 80;
-    server_name localdev.test.com test.com;
-    
-    proxy_redirect   off;
-    proxy_set_header Host $host;
-    
-    location / {
-        proxy_pass  http://test-web/; # Blog web is the name of the container
-    }
-}
-````
 - (optional) Edit your hosts file
 ````
 127.0.0.1 localhost
@@ -65,4 +93,4 @@ server {
 
 ## Certbot (Lets Encrypt)
 - Proxy server already contains [certbot](https://certbot.eff.org/)
-- If you want to create certificate or renew it, just add the `--webroot -w /var/www/html` (for example `certbot renew --dry-run --webroot -w /var/www/html`)
+- Nginx is configured to redirect all .well-known paths to the `/var/www/html` directory in order to allow Let's Encrypt to check and generate the certificates
