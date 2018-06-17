@@ -61,7 +61,7 @@ server {
     proxy_set_header Host $host;
     
     location / {
-        proxy_pass  http://test-web/; # Blog web is the name of the container
+        proxy_pass  http://test-web/; # test-web is the name of the container where the request will be redirected
     }
 }
 ````
