@@ -91,3 +91,13 @@ networks:
 ## Certbot (Lets Encrypt)
 - Proxy server already contains [certbot](https://certbot.eff.org/)
 - Nginx is configured to redirect all .well-known paths to the `/var/www/html` directory in order to allow Let's Encrypt to check and generate the certificates
+
+**Note**
+In case you dont want to have certbot on localhost you need to remove the config. You can achieve that by creating a new Dockerfile in which you will remove it.
+
+```
+FROM machy8/docker-nginx-proxy-server
+
+RUN rm /etc/nginx/conf.d/certbot.conf
+```
+
