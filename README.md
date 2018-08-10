@@ -45,9 +45,6 @@ networks:
 - docker-compose.yml
 - sites.d
     - test-web
-        - certificates
-            - letsencrypt.crt
-            - letsencrypt.key
         - test-web.conf
 ````
 
