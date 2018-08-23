@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:1.15
 
 RUN echo "deb http://ftp.debian.org/debian stretch-backports main" >> "/etc/apt/sources.list" && \
     apt-get update && apt-get install -y certbot -t stretch-backports
