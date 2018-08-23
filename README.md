@@ -27,6 +27,7 @@ services:
     image: machy8/docker-nginx-proxy-server
     volumes:
         - ./sites.d/test-web:/etc/nginx/sites.d/test-web
+        - ./certificates:/etc/letsencrypt
         - ./log:/var/log/nginx
     networks:
         - proxy-server
